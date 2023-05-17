@@ -120,49 +120,28 @@ public class CalcEngine
      * The result becomes both the leftOperand and
      * the new display value.
      */
-    private void calculateResult()
-    {
-        switch(lastOperator) {
-            case '+' -> {
-                displayValue = leftOperand + displayValue;
+    private void calculateResult() {
+        if (lastOperator == '+' || lastOperator == '-' || lastOperator == '*' || lastOperator == '/'|| lastOperator == '%') {
+            if (displayValue == 0 && (lastOperator == '/' || lastOperator == '%')) {
+                System.out.println("Can't divide by 0");
+                clear();
+            } else {
+                switch (lastOperator) {
+                    case '+' -> displayValue = leftOperand + displayValue;
+                    case '-' -> displayValue = leftOperand - displayValue;
+                    case '*' -> displayValue = leftOperand * displayValue;
+                    case '/' -> displayValue = leftOperand / displayValue;
+                    case '%' -> displayValue = leftOperand % displayValue;
+                }
                 haveLeftOperand = true;
                 leftOperand = displayValue;
             }
-            case '-' -> {
-                displayValue = leftOperand - displayValue;
-                haveLeftOperand = true;
-                leftOperand = displayValue;
-            }
-            case '*' -> {
-                displayValue = leftOperand * displayValue;
-                haveLeftOperand = true;
-                leftOperand = displayValue;
-            }
-            case '/' -> {
-                if(displayValue == 0) {
-                    System.out.println("can't divide by 0");
-                    clear();
-                }
-                else {
-                    displayValue = leftOperand / displayValue;
-                    haveLeftOperand = true;
-                    leftOperand = displayValue;
-                }
-            }
-            case '%' -> {
-                if(displayValue == 0) {
-                    System.out.println("can't divide by 0");
-                    clear();
-                }
-                else {
-                    displayValue = leftOperand % displayValue;
-                    haveLeftOperand = true;
-                    leftOperand = displayValue;
-                }
-            }
-            default -> keySequenceError();
+        } else {
+            keySequenceError();
         }
+        // hello
     }
+
 
     /**
      * Apply an operator.
