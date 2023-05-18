@@ -139,7 +139,6 @@ public class CalcEngine
         } else {
             keySequenceError();
         }
-        // hello
     }
 
 
