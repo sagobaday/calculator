@@ -16,6 +16,7 @@ public class UserInterface
 {
     private final CalcEngine calc;
     private boolean showingAuthor;
+    private boolean hexMode;
 
     private JFrame frame;
     private JTextField display;
@@ -31,11 +32,45 @@ public class UserInterface
         showingAuthor = true;
         makeFrame();
         frame.setVisible(true);
+        hexMode = false;
+        toggleHexButtons();
     }
 
     /**
      * Make the frame for the user interface.
      */
+    /*private void makeFrame() {
+        frame = new JFrame(calc.getTitle());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new BorderLayout(8, 8));
+        frame.getContentPane().setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        display = new JTextField();
+        frame.getContentPane().add(display, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(7, 4));
+        String[] buttonLabels = {
+            "7", "8", "9", "Clear",
+            "4", "5", "6", "?",
+            "1", "2", "3", "0",
+            "%", "", "", "=",
+            "+", "-", "/", "*",
+            "A", "B", "C", "",
+            "D", "E", "F", "HEX"
+        };
+
+        for (String label : buttonLabels) {
+            addButton(buttonPanel, label);
+        }
+
+        frame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+
+        status = new JLabel(calc.getAuthor());
+        frame.getContentPane().add(status, BorderLayout.SOUTH);
+
+        frame.pack();
+    }*/
+    
     private void makeFrame()
     {
         frame = new JFrame(calc.getTitle());
@@ -48,40 +83,19 @@ public class UserInterface
         contentPane.add(display, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel(new GridLayout(7, 4));
-        addButton(buttonPanel, "7");
-        addButton(buttonPanel, "8");
-        addButton(buttonPanel, "9");
-        addButton(buttonPanel, "C");
-
-        addButton(buttonPanel, "4");
-        addButton(buttonPanel, "5");
-        addButton(buttonPanel, "6");
-        addButton(buttonPanel, "?");
-
-        addButton(buttonPanel, "1");
-        addButton(buttonPanel, "2");
-        addButton(buttonPanel, "3");
-        addButton(buttonPanel, "0");
-
-        addButton(buttonPanel, "%");
-        buttonPanel.add(new JLabel(" "));
-        buttonPanel.add(new JLabel(" "));
-        addButton(buttonPanel, "=");
-
-        addButton(buttonPanel, "+");
-        addButton(buttonPanel, "-");
-        addButton(buttonPanel, "/");
-        addButton(buttonPanel, "*");
+        String[] buttonLabels = {
+            "7", "8", "9", "Clear",
+            "4", "5", "6", "?",
+            "1", "2", "3", "0",
+            "%", "", "", "=",
+            "+", "-", "/", "*",
+            "A", "B", "C", "",
+            "D", "E", "F", "HEX"
+        };
         
-        addButton(buttonPanel, "A");
-        addButton(buttonPanel, "B");
-        addButton(buttonPanel, "C");
-        buttonPanel.add(new JLabel(" "));
-        
-        addButton(buttonPanel, "D");
-        addButton(buttonPanel, "E");
-        addButton(buttonPanel, "F");
-        buttonPanel.add(new JLabel(" "));
+        for (String label : buttonLabels) {
+            addButton(buttonPanel, label);
+        }
 
         contentPane.add(buttonPanel, BorderLayout.CENTER);
 
@@ -117,9 +131,28 @@ public class UserInterface
                 int number = Integer.parseInt(command);
                 calc.numberPressed(number);
             }
+            case "A", "B", "C", "D", "E", "F" -> {
+            	int number = 0;
+            	
+            	switch(command) {
+            		case "A" -> number = 10;
+            		case "B" -> number = 11;
+            		case "C" -> number = 12;
+            		case "D" -> number = 13;
+            		case "E" -> number = 14;
+            		case "F" -> number = 15;
+            	}
+            	
+            	calc.numberPressed(number);
+            }
+            case "HEX" -> {
+            	calc.switchMode();
+            	hexMode = !hexMode;
+            	toggleHexButtons();
+            }
             case "+", "-", "/", "*", "%" -> calc.applyOperator(command.toCharArray()[0]);
             case "=" -> calc.equals();
-            case "C" -> calc.clear();
+            case "Clear" -> calc.clear();
             case "?" -> showInfo();
         }
 
@@ -128,13 +161,23 @@ public class UserInterface
         redisplay();
     }
 
+    private void toggleHexButtons() {
+    	JPanel buttonPanel = (JPanel) frame.getContentPane().getComponent(1);
+    	
+    	for(int i = buttonPanel.getComponents().length - 2; i >= 20; i--)
+    		((JButton) buttonPanel.getComponent(i)).setEnabled(hexMode);
+    }
+    
     /**
      * Update the interface display to show the current value of the
      * calculator.
      */
     private void redisplay()
     {
-        display.setText(String.valueOf(calc.getDisplayValue()));
+        if (!hexMode)
+        	display.setText(String.valueOf(calc.getDisplayValue()));
+        else
+        	display.setText(Long.toHexString(Math.round(calc.getDisplayValue())));
     }
 
     /**
