@@ -47,7 +47,7 @@ public class UserInterface
         display = new JTextField();
         contentPane.add(display, BorderLayout.NORTH);
 
-        JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
+        JPanel buttonPanel = new JPanel(new GridLayout(7, 4));
         addButton(buttonPanel, "7");
         addButton(buttonPanel, "8");
         addButton(buttonPanel, "9");
@@ -72,6 +72,16 @@ public class UserInterface
         addButton(buttonPanel, "-");
         addButton(buttonPanel, "/");
         addButton(buttonPanel, "*");
+        
+        addButton(buttonPanel, "A");
+        addButton(buttonPanel, "B");
+        addButton(buttonPanel, "C");
+        buttonPanel.add(new JLabel(" "));
+        
+        addButton(buttonPanel, "D");
+        addButton(buttonPanel, "E");
+        addButton(buttonPanel, "F");
+        buttonPanel.add(new JLabel(" "));
 
         contentPane.add(buttonPanel, BorderLayout.CENTER);
 
