@@ -16,7 +16,7 @@ public class Calculator
     /**
      * Create a new calculator and show it.
      */
-    private Calculator()
+    protected Calculator()
     {
         CalcEngine engine = new CalcEngine();
         new UserInterface(engine);

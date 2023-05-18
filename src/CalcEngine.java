@@ -14,6 +14,8 @@ public class CalcEngine
     private boolean buildingDisplayValue;
     // Has a left operand already been entered (or calculated)?
     private boolean haveLeftOperand;
+    //...
+    private boolean hexMode;
     // The most recent operator that was entered.
     private char lastOperator;
 
@@ -28,6 +30,7 @@ public class CalcEngine
     public CalcEngine()
     {
         clear();
+        hexMode = false;
     }
 
     /**
@@ -38,6 +41,11 @@ public class CalcEngine
     {
         return displayValue;
     }
+    
+    public void switchMode()
+    {
+    	hexMode = !hexMode;
+    }
 
     /**
      * A number button was pressed.
@@ -47,9 +55,12 @@ public class CalcEngine
      */
     public void numberPressed(double number)
     {
-        if(buildingDisplayValue) {
+        if(buildingDisplayValue && !hexMode) {
             // Incorporate this digit.
             displayValue = displayValue*10 + number;
+        }
+        else if(buildingDisplayValue) {
+        	displayValue = displayValue*16 + number;
         }
         else {
             // Start building a new number.
@@ -181,4 +192,3 @@ public class CalcEngine
         clear();
     }
 }
-

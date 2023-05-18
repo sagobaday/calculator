@@ -39,38 +39,7 @@ public class UserInterface
     /**
      * Make the frame for the user interface.
      */
-    /*private void makeFrame() {
-        frame = new JFrame(calc.getTitle());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout(8, 8));
-        frame.getContentPane().setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        display = new JTextField();
-        frame.getContentPane().add(display, BorderLayout.NORTH);
-
-        JPanel buttonPanel = new JPanel(new GridLayout(7, 4));
-        String[] buttonLabels = {
-            "7", "8", "9", "Clear",
-            "4", "5", "6", "?",
-            "1", "2", "3", "0",
-            "%", "", "", "=",
-            "+", "-", "/", "*",
-            "A", "B", "C", "",
-            "D", "E", "F", "HEX"
-        };
-
-        for (String label : buttonLabels) {
-            addButton(buttonPanel, label);
-        }
-
-        frame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
-
-        status = new JLabel(calc.getAuthor());
-        frame.getContentPane().add(status, BorderLayout.SOUTH);
-
-        frame.pack();
-    }*/
-    
     private void makeFrame()
     {
         frame = new JFrame(calc.getTitle());
@@ -165,7 +134,7 @@ public class UserInterface
     	JPanel buttonPanel = (JPanel) frame.getContentPane().getComponent(1);
     	
     	for(int i = buttonPanel.getComponents().length - 2; i >= 20; i--)
-    		((JButton) buttonPanel.getComponent(i)).setEnabled(hexMode);
+    		buttonPanel.getComponent(i).setEnabled(hexMode);
     }
     
     /**
