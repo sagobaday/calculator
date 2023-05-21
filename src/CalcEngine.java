@@ -59,7 +59,7 @@ public class CalcEngine
             // Incorporate this digit.
             displayValue = displayValue*10 + number;
         }
-        else if(buildingDisplayValue) {
+        else if(buildingDisplayValue && hexMode) {
         	displayValue = displayValue*16 + number;
         }
         else {
