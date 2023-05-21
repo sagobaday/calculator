@@ -1,8 +1,8 @@
 /**
  * The main part of the calculator doing the calculations.
  *
- * @author  David J. Barnes and Michael Kolling
- * @version 2008.03.30
+ * @author  Tizian and Santiago
+ * @version 2023.05.21
  */
 public class CalcEngine
 {
@@ -114,7 +114,7 @@ public class CalcEngine
      */
     public String getAuthor()
     {
-        return "David J. Barnes and Michael Kolling";
+        return "Tizian and Santiago";
     }
 
     /**
@@ -122,7 +122,7 @@ public class CalcEngine
      */
     public String getVersion()
     {
-        return "Version 1.0";
+        return "Version 2.0";
     }
 
     /**
