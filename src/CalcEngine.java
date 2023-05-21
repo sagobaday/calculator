@@ -1,8 +1,8 @@
 /**
  * The main part of the calculator doing the calculations.
  *
- * @author  Tizian and Santiago
- * @version 2023.05.21
+ * @author  David J. Barnes and Michael Kolling
+ * @version 2008.03.30
  */
 public class CalcEngine
 {
@@ -59,7 +59,7 @@ public class CalcEngine
             // Incorporate this digit.
             displayValue = displayValue*10 + number;
         }
-        else if(buildingDisplayValue) {
+        else if(buildingDisplayValue && hexMode) {
         	displayValue = displayValue*16 + number;
         }
         else {
@@ -114,7 +114,7 @@ public class CalcEngine
      */
     public String getAuthor()
     {
-        return "Tizian and Santiago";
+        return "David J. Barnes and Michael Kolling";
     }
 
     /**
@@ -122,7 +122,7 @@ public class CalcEngine
      */
     public String getVersion()
     {
-        return "Version 2.0";
+        return "Version 1.0";
     }
 
     /**
